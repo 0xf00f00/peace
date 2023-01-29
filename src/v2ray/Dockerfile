@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY v2ray.sh /root/v2ray.sh
 COPY config.json /etc/v2ray/config.json
 

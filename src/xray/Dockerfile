@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY xray.sh /root/xray.sh
 COPY config.json /etc/xray/config.json
 

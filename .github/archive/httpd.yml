@@ -39,6 +39,8 @@ jobs:
           context: .
           platforms: linux/386,linux/amd64,linux/arm64
           push: true
+          build-args: |
+            VERSION=${{ env.VERSION }}
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/httpd:latest
             ${{ secrets.DOCKER_USERNAME }}/httpd:${{ env.VERSION }}

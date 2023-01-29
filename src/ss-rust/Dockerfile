@@ -1,6 +1,8 @@
 FROM --platform=${TARGETPLATFORM} alpine:latest
 
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY ss-rust.sh /root/ss-rust.sh
 COPY config.json /etc/ss-rust/config.json
 

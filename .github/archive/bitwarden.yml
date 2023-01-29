@@ -172,6 +172,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
+          build-args: |
+            VERSION=${{ env.VERSION }}
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/bitwarden:latest
             ${{ secrets.DOCKER_USERNAME }}/bitwarden:${{ env.VERSION }}

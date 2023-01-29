@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY trojan-r.sh /root/trojan-r.sh
 COPY config.toml /etc/trojan-r/config.toml
 

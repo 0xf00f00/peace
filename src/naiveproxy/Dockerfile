@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} debian:bullseye-slim
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY naive.sh /root/naive.sh
 COPY config.json /etc/naiveproxy/config.json
 

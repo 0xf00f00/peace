@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} debian:buster-slim
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY httpd.sh /root/httpd.sh
 
 RUN set -ex \

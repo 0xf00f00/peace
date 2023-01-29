@@ -1,6 +1,8 @@
 FROM --platform=${TARGETPLATFORM} alpine:latest
 
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY tuic.sh /root/tuic.sh
 COPY config.json /etc/tuic/config.json
 

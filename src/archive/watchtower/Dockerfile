@@ -1,6 +1,8 @@
 FROM --platform=${TARGETPLATFORM} alpine:latest
 
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY watchtower.sh /root/watchtower.sh
 
 RUN set -ex \

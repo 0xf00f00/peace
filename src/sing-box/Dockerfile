@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY sing-box.sh /root/sing-box.sh
 COPY config.json /etc/sing-box/config.json
 

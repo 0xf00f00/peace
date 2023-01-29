@@ -43,6 +43,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
+          build-args: |
+            VERSION=${{ env.VERSION }}
           tags: |
             ghcr.io/${{ github.actor }}/mdn:latest
             ghcr.io/${{ github.actor }}/mdn:${{ env.VERSION }}

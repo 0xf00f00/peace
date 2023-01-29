@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} alpine:latest
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY caddy.sh /root/caddy.sh
 COPY Caddyfile /etc/naiveproxy/Caddyfile
 COPY config.json /etc/naiveproxy/config.json

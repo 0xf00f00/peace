@@ -2,6 +2,8 @@ FROM --platform=${TARGETPLATFORM} node:16-alpine
 
 WORKDIR /root
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 
 RUN set -ex \
     && apk add --no-cache git wget tzdata \

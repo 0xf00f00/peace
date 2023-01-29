@@ -1,6 +1,8 @@
 FROM --platform=${TARGETPLATFORM} alpine:latest
 
 ARG TARGETPLATFORM
+ARG VERSION
+ENV VERSION ${VERSION}
 COPY trojan-go.sh /root/trojan-go.sh
 COPY config.json /etc/trojan-go/config.json
 

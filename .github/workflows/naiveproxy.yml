@@ -241,6 +241,8 @@ jobs:
           context: .
           platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
           push: true
+          build-args: |
+            VERSION=${{ env.VERSION }}
           tags: |
             ghcr.io/${{ github.actor }}/naiveproxy:client
             ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }}

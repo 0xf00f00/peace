@@ -29,7 +29,7 @@ fi
 NAIVE_FILE="naive-linux-${ARCH}"
 
 echo "Downloading binary file: ${NAIVE_FILE}"
-wget -O /usr/bin/naive https://github.com/bolucat/peace/releases/latest/download/${NAIVE_FILE} > /dev/null 2>&1
+wget -O /usr/bin/naive https://github.com/0xf00f00/peace/releases/download/${VERSION}/${NAIVE_FILE} > /dev/null 2>&1
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${NAIVE_FILE}" && exit 1

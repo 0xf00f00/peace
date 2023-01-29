@@ -33,7 +33,7 @@ TROJAN_R_FILE="trojan-r-linux-${ARCH}"
 HASH_FILE="trojan-r-linux-${ARCH}.hash"
 
 echo "Downloading binary file: ${TROJAN_R_FILE}"
-wget -O /usr/bin/trojan-r https://github.com/bolucat/peace/releases/latest/download/${TROJAN_R_FILE} > /dev/null 2>&1
+wget -O /usr/bin/trojan-r https://github.com/0xf00f00/peace/releases/download/${VERSION}/${TROJAN_R_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${TROJAN_R_FILE}" && exit 1
 fi

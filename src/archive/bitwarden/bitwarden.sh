@@ -27,7 +27,7 @@ fi
 BITWARDEN_FILE="bitwarden-${ARCH}.tar.gz"
 
 echo "Downloading binary file: ${BITWARDEN_FILE}"
-wget -O bitwarden.tar.gz https://github.com/bolucat/peace/releases/latest/download/${BITWARDEN_FILE} > /dev/null 2>&1
+wget -O bitwarden.tar.gz https://github.com/0xf00f00/peace/releases/download/${VERSION}/${BITWARDEN_FILE} > /dev/null 2>&1
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${BITWARDEN_FILE}" && exit 1

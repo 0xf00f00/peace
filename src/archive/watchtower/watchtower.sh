@@ -37,7 +37,7 @@ fi
 WATCHTOWER_FILE="watchtower-linux-${ARCH}"
 
 echo "Downloading binary file: ${WATCHTOWER_FILE}"
-wget -O /watchtower https://github.com/bolucat/peace/releases/latest/download/${WATCHTOWER_FILE} > /dev/null 2>&1
+wget -O /watchtower https://github.com/0xf00f00/peace/releases/download/${VERSION}/${WATCHTOWER_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${WATCHTOWER_FILE}" && exit 1
 fi

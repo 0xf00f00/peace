@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Bilibili Trace Block
-// @namespace   https://raw.githubusercontent.com/bolucat/peace/master/src/script/bilibili-trace-block.js
+// @namespace   https://raw.githubusercontent.com/0xf00f00/peace/master/src/script/bilibili-trace-block.js
 // @match       *://*.bilibili.com/*
 // @exclude     *://search.bilibili.com/*
 // @run-at      document-start

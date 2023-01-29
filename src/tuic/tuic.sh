@@ -28,7 +28,7 @@ fi
 TUIC_FILE="tuic-linux-${ARCH}"
 
 echo "Downloading binary file: ${TUIC_FILE}"
-wget -O $PWD/tuic https://github.com/bolucat/peace/releases/latest/download/${TUIC_FILE} > /dev/null 2>&1
+wget -O $PWD/tuic https://github.com/0xf00f00/peace/releases/download/${VERSION}/${TUIC_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${TUIC_FILE}" && exit 1
 fi

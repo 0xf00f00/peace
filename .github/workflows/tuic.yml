@@ -7,6 +7,8 @@ name: tuic
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     env:
       CARGO_TERM_COLOR: always
       RUST_BACKTRACE: full
@@ -81,6 +83,9 @@ jobs:
   push:
     needs: build
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
     steps:
       
       - name: Checkout
@@ -101,11 +106,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v2.1.0
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build latest
         uses: docker/build-push-action@v3.3.0
@@ -114,8 +120,8 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/tuic:latest
-            ${{ secrets.DOCKER_USERNAME }}/tuic:${{ env.VERSION }}
+            ghcr.io/${{ github.actor }}/tuic:latest
+            ghcr.io/${{ github.actor }}/tuic:${{ env.VERSION }}
 
   test:
     needs: push
@@ -132,5 +138,5 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run --rm --entrypoint /usr/bin/tuic ${{ secrets.DOCKER_USERNAME }}/tuic:latest --version
-          docker run --rm --entrypoint /usr/bin/tuic ${{ secrets.DOCKER_USERNAME }}/tuic:${{ env.VERSION }} --version
+          docker run --rm --entrypoint /usr/bin/tuic ghcr.io/${{ github.actor }}/tuic:latest --version
+          docker run --rm --entrypoint /usr/bin/tuic ghcr.io/${{ github.actor }}/tuic:${{ env.VERSION }} --version

@@ -244,8 +244,8 @@ jobs:
           build-args: |
             VERSION=${{ env.VERSION }}
           tags: |
-            ghcr.io/${{ github.actor }}/naiveproxy:client
-            ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }}
+            ghcr.io/${{ github.actor }}/naive:client
+            ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }}
            
   test:
      needs: [build-linux,push]
@@ -262,8 +262,8 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run --rm --entrypoint /usr/bin/naive ghcr.io/${{ github.actor }}/naiveproxy:client --version
-          docker run --rm --entrypoint /usr/bin/naive ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }} --version
+          docker run --rm --entrypoint /usr/bin/naive ghcr.io/${{ github.actor }}/naive:client --version
+          docker run --rm --entrypoint /usr/bin/naive ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }} --version
 
   backup:
       runs-on: ubuntu-22.04

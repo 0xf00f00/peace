@@ -125,8 +125,8 @@ jobs:
           build-args: |
             VERSION=${{ env.VERSION }}
           tags: |
-            ghcr.io/${{ github.actor }}/naiveproxy:latest
-            ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }}
+            ghcr.io/${{ github.actor }}/naive:latest
+            ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }}
 
   push-uot:
     needs: build-uot
@@ -170,8 +170,8 @@ jobs:
           build-args: |
             VERSION=${{ env.VERSION }}
           tags: |
-            ghcr.io/${{ github.actor }}/naiveproxy:latest-uot
-            ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }}-uot
+            ghcr.io/${{ github.actor }}/naive:latest-uot
+            ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }}-uot
 
   test:
     needs: [push,push-uot]
@@ -188,7 +188,7 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naiveproxy:latest version
-          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }} version
-          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naiveproxy:latest-uot version
-          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naiveproxy:${{ env.VERSION }}-uot version
+          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naive:latest version
+          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }} version
+          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naive:latest-uot version
+          docker run --rm --entrypoint /usr/bin/caddy ghcr.io/${{ github.actor }}/naive:${{ env.VERSION }}-uot version

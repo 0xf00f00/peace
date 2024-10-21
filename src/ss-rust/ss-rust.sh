@@ -28,6 +28,7 @@ fi
 SS_FILE="ss-rust-linux-${ARCH}.zip"
 
 echo "Downloading binary file: ${SS_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/ss-rust | head -1 | tr -d [:space:])
 wget -O $PWD/ss-rust.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${SS_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${SS_FILE}" && exit 1

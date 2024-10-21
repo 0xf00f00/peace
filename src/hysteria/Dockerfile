@@ -5,14 +5,14 @@ ARG TARGETPLATFORM
 ARG VERSION
 ENV VERSION ${VERSION}
 COPY hysteria.sh /root/hysteria.sh
-COPY config.json /etc/hysteria/config.json
+COPY config.yaml /etc/hysteria/config.yaml
 
 RUN set -ex \
 	&& apk add --no-cache tzdata ca-certificates \
-	&& mkdir -p /var/log/hysteria /usr/local/share/hysteria \
+	&& mkdir -p /var/www/html /var/log/hysteria /usr/local/share/hysteria \
 	&& chmod +x /root/hysteria.sh \
 	&& /root/hysteria.sh "${TARGETPLATFORM}" \
 	&& rm -rfv /root/hysteria.sh
 
 VOLUME /etc/hysteria
-CMD [ "/usr/bin/hysteria", "server", "--config", "/etc/hysteria/config.json" ]
+CMD [ "/usr/bin/hysteria", "server", "-c", "/etc/hysteria/config.yaml" ]

@@ -37,6 +37,7 @@ fi
 SING_BOX_FILE="sing-box-linux-${ARCH}.zip"
 
 echo "Downloading binary file: ${SING_BOX_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/sing-box | head -1 | tr -d [:space:])
 wget -O $PWD/sing-box.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${SING_BOX_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${SING_BOX_FILE}" && exit 1

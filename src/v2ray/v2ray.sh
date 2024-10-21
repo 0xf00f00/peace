@@ -37,6 +37,7 @@ fi
 V2RAY_FILE="v2ray-linux-${ARCH}.zip"
 
 echo "Downloading binary file: ${V2RAY_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/v2ray | head -1 | tr -d [:space:])
 wget -O $PWD/v2ray.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${V2RAY_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${V2RAY_FILE}" && exit 1

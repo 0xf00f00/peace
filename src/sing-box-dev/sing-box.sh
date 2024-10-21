@@ -34,19 +34,19 @@ fi
 [ -z "${ARCH}" ] && echo "Error: Not supported OS Architecture" && exit 1
 
 # Download binary file
-HYSTERIA_FILE="hysteria-linux-${ARCH}.zip"
+SING_BOX_FILE="sing-box-linux-${ARCH}.zip"
 
-echo "Downloading binary file: ${HYSTERIA_FILE}"
-VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/hysteria | head -1 | tr -d [:space:])
-wget -O $PWD/hysteria.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${HYSTERIA_FILE} > /dev/null 2>&1
+echo "Downloading binary file: ${SING_BOX_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/sing-box-dev | head -1 | tr -d [:space:])
+wget -O $PWD/sing-box.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${SING_BOX_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to download binary file: ${HYSTERIA_FILE}" && exit 1
+    echo "Error: Failed to download binary file: ${SING_BOX_FILE}" && exit 1
 fi
-echo "Download binary file: ${HYSTERIA_FILE} completed"
+echo "Download binary file: ${SING_BOX_FILE} completed"
 
 echo "Prepare to use"
-unzip hysteria.zip && rm -rfv hysteria.zip
+unzip sing-box.zip && rm -rfv sing-box.zip
 chmod +x *-linux-${ARCH}
-mv hysteria-linux-${ARCH} /usr/bin/hysteria
-mv GeoLite2-Country.mmdb /usr/bin/GeoLite2-Country.mmdb
+mv sing-box-linux-${ARCH} /usr/bin/sing-box
+mv geosite.db geoip.db /usr/bin/
 echo "Done"

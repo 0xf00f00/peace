@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'version/tuic.txt'
+      - 'version/tuic'
 
 name: tuic
 jobs:
@@ -27,7 +27,7 @@ jobs:
 
       - name: Setup variables
         run: |
-          echo "VERSION=$(cat "version/tuic.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/tuic" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
           echo "TUIC=$(wget -qO- https://api.github.com/repos/EAimTY/tuic/tags | grep 'name' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
         shell: bash
 
@@ -93,7 +93,7 @@ jobs:
       
       - name: Setup variables
         run: |
-          echo "VERSION=$(cat "version/tuic.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/tuic" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Get Dockerfile
@@ -114,7 +114,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build latest
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.1
         with:
           context: .
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
@@ -135,7 +135,7 @@ jobs:
       
       - name: Setup variables
         run: |
-          echo "VERSION=$(cat "version/tuic.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/tuic" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Test Docker image

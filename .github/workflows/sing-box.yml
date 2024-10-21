@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'version/sing-box.txt'
+      - 'version/sing-box'
 
 name: sing-box
 jobs:
@@ -17,11 +17,11 @@ jobs:
       - name: Set Env
         run: |
           echo "GOLANG=$(wget -qO- https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep 'version' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
-          echo "VERSION=$(cat "version/sing-box.txt" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/sing-box" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Install Golang
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with: 
           go-version: ${{ env.GOLANG }}
 
@@ -55,7 +55,7 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/sing-box.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/sing-box" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Get Dockerfile
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build latest
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.1
         with:
           context: .
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
@@ -97,7 +97,7 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/sing-box.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/sing-box" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Test Docker image

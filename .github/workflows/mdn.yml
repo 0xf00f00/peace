@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'version/mdn.txt'
+      - 'version/mdn'
 
 name: mdn
 jobs:
@@ -17,7 +17,7 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/mdn.txt" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/mdn" | head -1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Get Dockerfile
@@ -38,10 +38,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build latest
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.1
         with:
           context: .
-          platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
           build-args: |
             VERSION=${{ env.VERSION }}

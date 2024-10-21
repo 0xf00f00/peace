@@ -37,6 +37,7 @@ fi
 XRAY_FILE="xray-linux-${ARCH}.zip"
 
 echo "Downloading binary file: ${XRAY_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/xray | head -1 | tr -d [:space:])
 wget -O $PWD/xray.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${XRAY_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${XRAY_FILE}" && exit 1

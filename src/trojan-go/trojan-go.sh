@@ -37,6 +37,7 @@ fi
 TROJAN_FILE="trojan-go-linux-${ARCH}.zip"
 
 echo "Downloading binary file: ${TROJAN_FILE}"
+VERSION=$(wget -qO- https://raw.githubusercontent.com/0xf00f00/peace/master/version/trojan-go | head -1 | tr -d [:space:])
 wget -O $PWD/trojan-go.zip https://github.com/0xf00f00/peace/releases/download/${VERSION}/${TROJAN_FILE} > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download binary file: ${TROJAN_FILE}" && exit 1

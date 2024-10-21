@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'version/trojan-go.txt'
+      - 'version/trojan-go'
 
 name: trojan-go
 jobs:
@@ -21,7 +21,7 @@ jobs:
         shell: bash
 
       - name: Install Golang
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with: 
           go-version: ${{ env.GOLANG }}
 
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build latest
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.1
         with:
           context: .
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x

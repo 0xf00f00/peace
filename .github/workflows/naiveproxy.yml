@@ -1,7 +1,7 @@
 on:
   push:
     paths:
-      - 'version/naiveproxy.txt'
+      - 'version/naiveproxy'
 defaults:
   run:
     shell: bash
@@ -26,13 +26,13 @@ jobs:
       
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/naiveproxy.txt" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/naiveproxy" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
           echo "NAIVE=$(wget -qO- https://api.github.com/repos/klzgrad/naiveproxy/tags | grep 'name' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
           echo "GOLANG=$(wget -qO- https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep 'version' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
         shell: bash
         
       - name: Install Golang
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with: 
           go-version: ${{ env.GOLANG }}
 
@@ -42,7 +42,7 @@ jobs:
           sudo apt install -y ninja-build pkg-config qemu-user ccache bubblewrap
           sudo apt purge -y libc6-i386
           sudo apt purge -y qemu-user-binfmt
-          wget "https://snapshot.debian.org/archive/debian/20220515T152741Z/pool/main/q/qemu/qemu-user-static_7.0%2Bdfsg-6_amd64.deb" -O qemu-user-static.deb
+          wget "https://github.com/bolucat/ninja/releases/download/qemu-user-static/qemu-user-static_8.0+dfsg-4_amd64.deb" -O qemu-user-static.deb
           sudo dpkg -i qemu-user-static.deb
           git clone https://github.com/klzgrad/naiveproxy naiveproxy
           pushd naiveproxy || exit 1
@@ -50,6 +50,9 @@ jobs:
           git checkout ${{ env.NAIVE }}
           popd || exit 1
           pushd naiveproxy/src || exit 1
+          # Regenerate Debian keyring
+          rm -rf build/linux/sysroot_scripts/keyring.gpg
+          GPG_TTY=/dev/null build/linux/sysroot_scripts/generate_keyring.sh
           chmod +x *.sh
           ./get-clang.sh
           ./build.sh
@@ -62,7 +65,7 @@ jobs:
       - name: Ready to release
         run: |
           mkdir -p release #7zip
-          # wget "https://www.7-zip.org/a/7z2201-linux-x64.tar.xz" -O 7zip/7zip.tar.xz
+          # wget "https://www.7-zip.org/a/7z2301-linux-x64.tar.xz" -O 7zip/7zip.tar.xz
           # tar -xvf 7zip/7zip.tar.xz -C 7zip/ && mv 7zip/7zz .
           # rm -rf 7zip && chmod +x 7zz
           case ${{ matrix.cpu }} in
@@ -124,10 +127,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install wget
-        run: |
-          powershell "choco install wget"
-
       - name: Install ninja
         uses: seanmiddleditch/gha-setup-ninja@master
         with:
@@ -135,13 +134,13 @@ jobs:
 
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/naiveproxy.txt" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
-          echo "NAIVE=$(wget -qO- https://api.github.com/repos/klzgrad/naiveproxy/tags | grep 'name' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
-          echo "GOLANG=$(wget -qO- https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep 'version' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/naiveproxy" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "NAIVE=$(curl -s -o - https://api.github.com/repos/klzgrad/naiveproxy/tags | grep 'name' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
+          echo "GOLANG=$(curl -s -o - https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep 'version' | cut -d\" -f4 | head -1)" >> $GITHUB_ENV
         shell: bash
         
       - name: Install Golang
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with: 
           go-version: ${{ env.GOLANG }}
 
@@ -215,7 +214,7 @@ jobs:
       
       - name: Set variables
         run: |
-          echo "VERSION=$(cat "version/naiveproxy.txt" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/naiveproxy" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Get Dockerfile
@@ -236,7 +235,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build latest
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.1
         with:
           context: .
           platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
@@ -257,7 +256,7 @@ jobs:
       
       - name: Setup variables
         run: |
-          echo "VERSION=$(cat "version/naiveproxy.txt" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
+          echo "VERSION=$(cat "version/naiveproxy" | head -n1 | tr -d [:space:])" >> $GITHUB_ENV
         shell: bash
 
       - name: Test Docker image

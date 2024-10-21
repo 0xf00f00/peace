@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM} node:16-alpine
+FROM --platform=${TARGETPLATFORM} node:22-alpine
 
 WORKDIR /root
 ARG TARGETPLATFORM
@@ -11,9 +11,11 @@ RUN set -ex \
     pkgconfig libpng libpng-dev g++ \
     && git clone https://github.com/mdn/content \
     && mv content/* /root \
+    && mv content/.git /root \
     && rm -rf content \
     && npm install -g npm@latest \
     && npm --force install -g yarn \
+    && yarn config set network-timeout 600000 -g \
     && yarn \
     && echo "SERVER_PORT=5000" >> .env \
     && apk del git wget make automake autoconf
